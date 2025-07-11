@@ -44,6 +44,9 @@
     th {
       background-color: #f0f0f0;
     }
+    tr:not(:last-child) {
+    border-bottom: 2px solid #e0e0e0;
+    }
 
     @media screen and (max-width: 600px) {
       table, thead, tbody, th, td, tr {
@@ -51,9 +54,6 @@
       }
       th {
         display: none;
-      }
-      tr:not(:last-child) {
-      border-bottom: 2px solid #e0e0e0;
       }
       td {
         position: relative;
