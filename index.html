@@ -75,7 +75,7 @@
       td:nth-of-type(1)::before { content: "Order ID"; }
       td:nth-of-type(2)::before { content: "Customer"; }
       td:nth-of-type(3)::before { content: "Supplier"; }
-      td:nth-of-type(4)::before { content: "Invoice Date"; }
+      td:nth-of-type(4)::before { content: "Date"; }
       td:nth-of-type(5)::before { content: "BL Date"; }
       td:nth-of-type(6)::before { content: "Due Date"; }
     }
@@ -91,7 +91,7 @@
         <th>Order ID</th>
         <th>Customer</th>
         <th>Supplier</th>
-        <th>Invoice Date</th>
+        <th>Date</th>
         <th>BL Date</th>
         <th>Due Date</th>
       </tr>
@@ -105,32 +105,7 @@
     const search = document.getElementById("search");
 
     // dummy data
-    let allOrders = [
-      {
-        id: "25/0000",
-        client: "Doperco",
-        supplier: "Agropur",
-        invoiceDate: "2025-07-01",
-        blDate: "2025-07-05",
-        dueDate: "2025-08-01"
-      },
-      {
-        id: "25/0001",
-        client: "Padilla",
-        supplier: "Elof Hansson",
-        invoiceDate: "2025-06-20",
-        blDate: "2025-06-25",
-        dueDate: "2025-07-20"
-      },
-      {
-        id: "25/0002",
-        client: "Productos Quimicos Industriales",
-        supplier: "Occidental Chemical Corp",
-        invoiceDate: "2025-05-10",
-        blDate: "2025-05-12",
-        dueDate: "2025-06-10"
-      }
-    ]; // This will hold all data fetched from the backend
+    let allOrders = []; // This will hold all data fetched from the backend
 
     // Function to render the table using a given list of orders
     function renderTable(filteredOrders) {
@@ -141,12 +116,12 @@
       filteredOrders.forEach(order => {
         const row = document.createElement("tr");
         row.innerHTML = `
-          <td>${order.id}</td>
-          <td>${order.client}</td>
-          <td>${order.supplier}</td>
-          <td>${order.invoice_date}</td>
-          <td>${order.bl_date}</td>
-          <td>${order.due_date}</td>
+          <td>${order.pedido}</td>
+          <td>${order.cliente}</td>
+          <td>${order.proveedor}</td>
+          <td>${order.fecha}</td>
+          <td>${order.embarque}</td>
+          <td>${order.vencimiento}</td>
         `;
         tbody.appendChild(row);
       });
@@ -171,14 +146,14 @@
     renderTable(allOrders)
 
     // Fetch data from the backend API ONCE when the page loads
-    // (ctrl + /)
-    // fetch("http://localhost:3000/api/orders")
-    //   .then(response => response.json())  // Parse JSON from the response
-    //   .then(data => {
-    //     allOrders = data;                // Store all data in memory
-    //     renderTable(allOrders);         // Render it into the table
-    //   })
-    //   .catch(error => console.error("Error loading data:", error));
+
+    fetch("http://localhost:3000/api/orders")
+      .then(response => response.json())  // Parse JSON from the response
+      .then(data => {
+        allOrders = data;                // Store all data in memory
+        renderTable(allOrders);         // Render it into the table
+      })
+      .catch(error => console.error("Error loading data:", error));
   </script>
 </body>
 </html>
