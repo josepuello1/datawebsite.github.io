@@ -44,10 +44,12 @@
     th {
       background-color: #f0f0f0;
     }
+
+    /* Add a blue bottom border to each table row for readability */
     tbody tr {
-    border-bottom: 2px solid #007BFF; /* Blue line */
+      border-bottom: 2px solid #007BFF;
     }
-    
+
     @media screen and (max-width: 600px) {
       table, thead, tbody, th, td, tr {
         display: block;
@@ -98,6 +100,8 @@
   </table>
 
   <script>
+
+    // dummy data
     const orders = [
       {
         id: "25/0000",
@@ -127,37 +131,55 @@
 
     const tbody = document.querySelector("#orders-table tbody");
     const search = document.getElementById("search");
+    let allOrders = []; // This will hold all data fetched from the backend
 
+    // Function to render the table using a given list of orders
     function renderTable(filteredOrders) {
+      // Clear the table body
       tbody.innerHTML = "";
+
+      // Add a new row for each order
       filteredOrders.forEach(order => {
         const row = document.createElement("tr");
         row.innerHTML = `
           <td>${order.id}</td>
           <td>${order.client}</td>
           <td>${order.supplier}</td>
-          <td>${order.invoiceDate}</td>
-          <td>${order.blDate}</td>
-          <td>${order.dueDate}</td>
+          <td>${order.invoice_date}</td>
+          <td>${order.bl_date}</td>
+          <td>${order.due_date}</td>
         `;
         tbody.appendChild(row);
       });
     }
 
+    // Add event listener for the search input field
     search.addEventListener("input", () => {
       const term = search.value.toLowerCase();
-      const filtered = orders.filter(order => {
-        return (
-          order.id.toLowerCase().includes(term) ||
-          order.client.toLowerCase().includes(term) ||
-          order.supplier.toLowerCase().includes(term)
-        );
-      });
+
+      // Filter data locally without making another request
+      const filtered = allOrders.filter(order =>
+        order.id.toLowerCase().includes(term) ||
+        order.client.toLowerCase().includes(term) ||
+        order.supplier.toLowerCase().includes(term)
+      );
+
+      // Re-render the table with filtered results
       renderTable(filtered);
     });
 
-    // Initial render
-    renderTable(orders);
+    // initial render
+    renderTable(orders)
+
+    // Fetch data from the backend API ONCE when the page loads
+    // (ctrl + /)
+    // fetch("http://localhost:3000/api/orders")
+    //   .then(response => response.json())  // Parse JSON from the response
+    //   .then(data => {
+    //     allOrders = data;                // Store all data in memory
+    //     renderTable(allOrders);         // Render it into the table
+    //   })
+    //   .catch(error => console.error("Error loading data:", error));
   </script>
 </body>
 </html>
