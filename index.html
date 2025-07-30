@@ -101,8 +101,11 @@
 
   <script>
 
+    const tbody = document.querySelector("#orders-table tbody");
+    const search = document.getElementById("search");
+
     // dummy data
-    const orders = [
+    let allOrders = [
       {
         id: "25/0000",
         client: "Doperco",
@@ -127,11 +130,7 @@
         blDate: "2025-05-12",
         dueDate: "2025-06-10"
       }
-    ];
-
-    const tbody = document.querySelector("#orders-table tbody");
-    const search = document.getElementById("search");
-    let allOrders = []; // This will hold all data fetched from the backend
+    ]; // This will hold all data fetched from the backend
 
     // Function to render the table using a given list of orders
     function renderTable(filteredOrders) {
@@ -169,7 +168,7 @@
     });
 
     // initial render
-    renderTable(orders)
+    renderTable(allOrders)
 
     // Fetch data from the backend API ONCE when the page loads
     // (ctrl + /)
