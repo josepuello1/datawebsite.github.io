@@ -144,7 +144,7 @@
 
     // Fetch data from the backend API ONCE when the page loads
 
-    fetch("http://localhost:3000/api/orders")
+    fetch("https://pichardo-backend.onrender.com/api/orders")
       .then(response => response.json())  // Parse JSON from the response
       .then(data => {
         allOrders = data;                // Store all data in memory

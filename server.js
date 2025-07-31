@@ -9,11 +9,12 @@ const port = 3000; // The server will run at http://localhost:3000
 
 // Setup the PostgreSQL connection pool
 const pool = new Pool({
-  user: "postgres",       // <-- Replace with your PostgreSQL username
-  host: "localhost",          // <-- Use your local machine now, update later to remote IP
-  database: "Pichardo",  // <-- Replace with your PostgreSQL database name
-  password: "jo19se93jo",  // <-- Replace with your PostgreSQL password
-  port: 5432                  // Default PostgreSQL port
+  user: "pichardodatabase_user",
+  host: "dpg-d258a415pdvs73cjfeg0-a",
+  database: "pichardodatabase",
+  password: "y7twigH7aqEt1QyD1KrzknoM6T7ZdegNC", // database se estaba creando. Esperando por contraseña
+  port: 5432,
+  ssl: { rejectUnauthorized: false } // Important for cloud-hosted DBs
 });
 
 // Allow CORS so that your HTML/JS frontend can request from this server
