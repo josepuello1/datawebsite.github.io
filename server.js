@@ -2,19 +2,20 @@
 const express = require("express"); // Express helps create the web server
 const cors = require("cors");       // CORS allows your frontend to connect to the backend
 const { Pool } = require("pg");     // pg provides the PostgreSQL connection pool
+require("dotenv").config(); // Load environment variables from .env
 
 // Create the Express app
 const app = express();
-const port = 3000; // The server will run at http://localhost:3000
+const port = process.env.PORT || 3000; // The server will run at http://localhost:3000
 
 // Setup the PostgreSQL connection pool
 const pool = new Pool({
-  user: "pichardodatabase_user",
-  host: "dpg-d258a415pdvs73cjfeg0-a",
-  database: "pichardodatabase",
-  password: "y7twigH7aqEt1QyD1KrzknoM6T7ZdegNC", // database se estaba creando. Esperando por contraseña
-  port: 5432,
-  ssl: { rejectUnauthorized: false } // Important for cloud-hosted DBs
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD, // database se estaba creando. Esperando por contraseña
+  port: parseInt(process.env.DB_PORT, 10),
+  ssl: process.env.DB_SSL === "true" // Important for cloud-hosted DBs
 });
 
 // Allow CORS so that your HTML/JS frontend can request from this server
@@ -36,5 +37,5 @@ app.get("/api/orders", async (req, res) => {
 
 // Start the server on port 3000
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server running at port ${port}`);
 });
