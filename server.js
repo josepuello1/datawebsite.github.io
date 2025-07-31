@@ -10,13 +10,19 @@ const port = process.env.PORT || 3000; // The server will run at http://localhos
 
 // Setup the PostgreSQL connection pool
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD, // database se estaba creando. Esperando por contraseña
-  port: process.env.DB_PORT,
-  ssl: process.env.DB_SSL === "true" // Important for cloud-hosted DBs
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
+// const pool = new Pool({
+//   user: process.env.DB_USER,
+//   host: process.env.DB_HOST,
+//   database: process.env.DB_NAME,
+//   password: process.env.DB_PASSWORD, // database se estaba creando. Esperando por contraseña
+//   port: process.env.DB_PORT,
+//   ssl: process.env.DB_SSL === "true" // Important for cloud-hosted DBs
+// });
 
 // Allow CORS so that your HTML/JS frontend can request from this server
 app.use(cors());
