@@ -133,9 +133,9 @@
 
       // Filter data locally without making another request
       const filtered = allOrders.filter(order =>
-        order.id.toLowerCase().includes(term) ||
-        order.client.toLowerCase().includes(term) ||
-        order.supplier.toLowerCase().includes(term)
+        order.pedido.toLowerCase().includes(term) ||
+        order.cliente.toLowerCase().includes(term) ||
+        order.proveedor.toLowerCase().includes(term)
       );
 
       // Re-render the table with filtered results
