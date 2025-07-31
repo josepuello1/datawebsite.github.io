@@ -25,7 +25,11 @@ const pool = new Pool({
 // });
 
 // Allow CORS so that your HTML/JS frontend can request from this server
-app.use(cors());
+app.use(
+  cors({
+    origin: "*"
+  })
+);
 
 // Define an API route that sends all orders as JSON
 app.get("/api/orders", async (req, res) => {
