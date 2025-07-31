@@ -35,7 +35,7 @@ app.use(
 app.get("/api/orders", async (req, res) => {
   try {
     // Query the PostgreSQL database
-    const result = await pool.query("SELECT * FROM ordenes");
+    const result = await pool.query("SELECT * FROM ordenes ORDER BY fecha DESC");
     // Send the result back to the frontend in JSON format
     res.json(result.rows);
   } catch (err) {
