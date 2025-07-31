@@ -107,10 +107,31 @@
     // dummy data
     let allOrders = []; // This will hold all data fetched from the backend
 
+    // format date 
+    function formatDate(dateString) {
+      return new Date(dateString).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
+    }
+
     // Function to render the table using a given list of orders
     function renderTable(filteredOrders) {
       // Clear the table body
       tbody.innerHTML = "";
+
+      // message if nothing found in search
+      if (filteredOrders.length === 0) {
+      const row = document.createElement("tr");
+      const cell = document.createElement("td");
+      cell.colSpan = 6;
+      cell.textContent = "No orders found.";
+      cell.style.textAlign = "center";
+      row.appendChild(cell);
+      tbody.appendChild(row);
+      return;
+      }
 
       // Add a new row for each order
       filteredOrders.forEach(order => {
@@ -119,9 +140,9 @@
           <td>${order.pedido}</td>
           <td>${order.cliente}</td>
           <td>${order.proveedor}</td>
-          <td>${order.fecha}</td>
-          <td>${order.embarque}</td>
-          <td>${order.vencimiento}</td>
+          <td>${formatDate(order.fecha)}</td>
+          <td>${formatDate(order.embarque)}</td>
+          <td>${formatDate(order.vencimiento)}</td>
         `;
         tbody.appendChild(row);
       });
