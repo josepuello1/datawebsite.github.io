@@ -72,28 +72,32 @@
         white-space: nowrap;
         font-weight: bold;
       }
-      td:nth-of-type(1)::before { content: "Order ID"; }
-      td:nth-of-type(2)::before { content: "Customer"; }
-      td:nth-of-type(3)::before { content: "Supplier"; }
-      td:nth-of-type(4)::before { content: "Date"; }
-      td:nth-of-type(5)::before { content: "BL Date"; }
-      td:nth-of-type(6)::before { content: "Due Date"; }
+      td:nth-of-type(1)::before { content: "Pedido"; }
+      td:nth-of-type(4)::before { content: "Fecha de pedido"; }
+      td:nth-of-type(2)::before { content: "Cliente"; }
+      td:nth-of-type(3)::before { content: "Proveedor"; }
+      td:nth-of-type(4)::before { content: "Proforma"; }
+      td:nth-of-type(5)::before { content: "Factura"; }
+      td:nth-of-type(4)::before { content: "Fecha BL"; }
+      td:nth-of-type(6)::before { content: "Vencimiento"; }
     }
   </style>
 </head>
 <body>
   <h1>📦 Order Management</h1>
-  <input type="text" id="search" placeholder="Search by client, supplier, or order ID..." />
+  <input type="text" id="search" placeholder="Search by client, supplier, order ID, material..." />
 
   <table id="orders-table">
     <thead>
       <tr>
-        <th>Order ID</th>
-        <th>Customer</th>
-        <th>Supplier</th>
-        <th>Date</th>
-        <th>BL Date</th>
-        <th>Due Date</th>
+        <th>Pedido</th>
+        <th>Fecha de Pedido</th>
+        <th>Cliente</th>
+        <th>Proveedor</th>
+        <th>Proforma</th>
+        <th>Factura</th>
+        <th>Fecha BL</th>
+        <th>Vencimiento</th>
       </tr>
     </thead>
     <tbody></tbody>
@@ -138,9 +142,11 @@
         const row = document.createElement("tr");
         row.innerHTML = `
           <td>${order.pedido}</td>
+          <td>${formatDate(order.fecha)}</td>
           <td>${order.cliente}</td>
           <td>${order.proveedor}</td>
-          <td>${formatDate(order.fecha)}</td>
+          <td>${order.contrato}</td>
+          <td>${order.factura}</td>
           <td>${formatDate(order.embarque)}</td>
           <td>${formatDate(order.vencimiento)}</td>
         `;
@@ -156,7 +162,9 @@
       const filtered = allOrders.filter(order =>
         order.pedido.toLowerCase().includes(term) ||
         order.cliente.toLowerCase().includes(term) ||
-        order.proveedor.toLowerCase().includes(term)
+        order.proveedor.toLowerCase().includes(term) ||
+        order.factura.toLowerCase().includes(term) ||
+        order.contrato.toLowerCase().includes(term) ||
       );
 
       // Re-render the table with filtered results
