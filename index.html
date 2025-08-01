@@ -119,6 +119,14 @@
     // dummy data
     let allOrders = []; // This will hold all data fetched from the backend
 
+    // format currency 
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(amount);
+    }
+
     // format date 
     function formatDate(dateString) {
       return new Date(dateString).toLocaleDateString("en-US", {
@@ -155,7 +163,7 @@
           <td>${order.proveedor}</td>
           <td>${order.contrato}</td>
           <td>${order.factura}</td>
-          <td>${order.total}</td>
+          <td>${formatCurrency(order.total)}</td>
           <td>${order.material1}</td>
           <td>${formatDate(order.embarque)}</td>
           <td>${formatDate(order.vencimiento)}</td>
