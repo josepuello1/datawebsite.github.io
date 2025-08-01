@@ -121,10 +121,15 @@
 
     // format currency 
     function formatCurrency(amount) {
-      return new Intl.NumberFormat("en-US", {
+      const num = Number(amount);
+      if (isNaN(num)) return "$0.00";
+
+      return num.toLocaleString("en-US", {
         style: "currency",
         currency: "USD",
-      }).format(Number(amount));
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
     }
 
     // format date 
