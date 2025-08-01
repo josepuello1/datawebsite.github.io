@@ -124,7 +124,9 @@
       return new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
-      }).format(amount);
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(Number(amount));
     }
 
     // format date 
